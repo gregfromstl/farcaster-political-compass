@@ -12,8 +12,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     return {
         title: `${params.username} is politically...`,
-        description:
-            "See @${params.username}'s cast-based political compass on Farcompass.",
+        description: `See @${params.username}'s cast-based political compass on Farcompass.`,
     };
 }
 
