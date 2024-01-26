@@ -40,7 +40,7 @@ export default function Compass({ user }: { user?: User }) {
     }, [user]);
 
     return (
-        <div className="relative w-96 h-96">
+        <div className="relative w-64 h-64 md:w-96 md:h-96">
             <Image
                 src="/compass.png"
                 fill
@@ -63,7 +63,7 @@ export default function Compass({ user }: { user?: User }) {
                     }}
                 >
                     {user.pfpUrl ? (
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                        <div className="relative w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden">
                             <Image
                                 src={user.pfpUrl}
                                 alt={user.name}
