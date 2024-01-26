@@ -26,7 +26,6 @@ export default async function Home({
     if (searchParams.query) {
         try {
             user = await getUser(searchParams.query);
-            console.log(user);
             if (!user) throw new Error("User not found");
         } catch (e: any) {
             if (e.response?.status === 404) {

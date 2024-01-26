@@ -1,6 +1,7 @@
 import MistralClient from "@mistralai/mistralai";
 import cosineSimilarity from "./cosine-similarity";
 import { Compass } from "@/types";
+import sampleData from "./sample-data";
 
 export default async function evaluateCompass(
     casts: string[]
@@ -51,14 +52,35 @@ export default async function evaluateCompass(
     const upScore = cumulativeCoordinates[2] / castEmbeddings.length;
     const downScore = cumulativeCoordinates[3] / castEmbeddings.length;
 
-    const maxScore = Math.max(leftScore, rightScore, upScore, downScore);
-    const minScore = Math.min(leftScore, rightScore, upScore, downScore);
+    const maxCompass = {
+        left: Math.min(...sampleData.map((d) => d.right - d.left)),
+        right: Math.max(...sampleData.map((d) => d.right - d.left)),
+        authoritarian: Math.max(
+            ...sampleData.map((d) => d.authoritarian * 1.01 - d.libertarian)
+        ), // Add a little bit of a boost to the authoritarian metric because it is crypto after all
+        libertarian: Math.min(
+            ...sampleData.map((d) => d.authoritarian * 1.01 - d.libertarian)
+        ),
+    };
+
+    const scaleScore = (score: number, min: number, max: number) => {
+        let scaledScore = ((score - min) / (max - min)) * 2 - 1;
+        scaledScore = Math.max(-1, scaledScore);
+        scaledScore = Math.min(1, scaledScore);
+        return scaledScore;
+    };
 
     const compass = {
-        left: (leftScore - minScore) / (maxScore - minScore),
-        right: (rightScore - minScore) / (maxScore - minScore),
-        up: (upScore - minScore) / (maxScore - minScore),
-        down: (downScore - minScore) / (maxScore - minScore),
+        x: scaleScore(
+            rightScore - leftScore,
+            maxCompass.left,
+            maxCompass.right
+        ),
+        y: scaleScore(
+            upScore - downScore,
+            maxCompass.libertarian,
+            maxCompass.authoritarian
+        ),
     };
 
     return compass;

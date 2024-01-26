@@ -1,10 +1,8 @@
 import z from "zod";
 
 export const CompassSchema = z.object({
-    left: z.number(),
-    right: z.number(),
-    up: z.number(),
-    down: z.number(),
+    x: z.number().min(-1).max(1),
+    y: z.number().min(-1).max(1),
 });
 
 export type Compass = z.infer<typeof CompassSchema>;

@@ -37,7 +37,6 @@ export async function GET(
             },
         });
     } catch (e: any) {
-        // console.log(e);
         if (e.response.data.code === "NotFound") {
             return new Response("Not found", { status: 404 });
         }

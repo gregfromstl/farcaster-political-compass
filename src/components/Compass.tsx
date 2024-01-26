@@ -14,7 +14,7 @@ const getCompass = async (fid: number) => {
     if (!compass.success) {
         throw new Error("Failed to parse compass");
     }
-    return response.data;
+    return compass.data;
 };
 
 export default function Compass({ user }: { user?: User }) {
@@ -53,13 +53,16 @@ export default function Compass({ user }: { user?: User }) {
                 <div
                     style={{
                         position: "absolute",
-                        left: `${50 + (compass.right - compass.left) * 50}%`,
-                        top: `${50 + (compass.down - compass.up) * 50}%`,
+                        left: `${Math.min(
+                            Math.max(50 + compass.x * 50, 20),
+                            80
+                        )}%`,
+                        top: `${50 - compass.y * 50}%`,
                         transform: "translate(-50%, -50%)",
                     }}
                 >
                     {user.pfpUrl ? (
-                        <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                        <div className="relative w-10 h-10 rounded-full overflow-hidden">
                             <Image
                                 src={user.pfpUrl}
                                 alt={user.name}
@@ -68,7 +71,7 @@ export default function Compass({ user }: { user?: User }) {
                             />
                         </div>
                     ) : (
-                        <div className="w-12 h-12 bg-blue-500 rounded-full" />
+                        <div className="w-10 h-10 bg-blue-500 rounded-full" />
                     )}
                 </div>
             )}

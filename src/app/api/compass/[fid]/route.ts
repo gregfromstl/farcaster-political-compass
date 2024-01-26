@@ -34,7 +34,6 @@ export async function GET(
             i++;
         } while (cursor && i < 10);
         const compass = await evaluateCompass(casts);
-        console.log(compass);
         return new Response(JSON.stringify(compass), {
             headers: {
                 "Content-Type": "application/json",
