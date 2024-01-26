@@ -22,8 +22,8 @@ export default function Generate({
         e.preventDefault();
         try {
             setLoading(true);
-            await getUser(query); // prefetch the user
-            router.push(`/user/${query}`);
+            await getUser(query.toLowerCase()); // prefetch the user
+            router.push(`/user/${query.toLowerCase()}`);
         } catch (e: any) {
             if (e.response?.status === 404) {
                 toast.error("They're not on Farcaster ¯\\_(ツ)_/¯");
