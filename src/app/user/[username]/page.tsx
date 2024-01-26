@@ -1,13 +1,10 @@
-import ClientSideToast from "@/components/ClientSideToast";
 import Compass from "@/components/Compass";
 import Generate from "@/components/Generate";
 import ShareButton from "@/components/ShareButton";
-import { Button } from "@/components/catalyst/button";
 import { User } from "@/types";
 import getUser from "@/util/get-user";
 import { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
 
 export async function generateMetadata(
     { params }: { params: { username: string } },

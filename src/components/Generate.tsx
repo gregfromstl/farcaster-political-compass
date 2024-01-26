@@ -6,6 +6,7 @@ import { Button } from "@/components/catalyst/button";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import getUser from "@/util/get-user";
+import Spinner from "./Spinner";
 
 export default function Generate({
     existingQuery,
@@ -16,9 +17,11 @@ export default function Generate({
 }) {
     const router = useRouter();
     const [query, setQuery] = useState(existingQuery ?? "");
+    const [loading, setLoading] = useState(false);
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         try {
+            setLoading(true);
             await getUser(query); // prefetch the user
             router.push(`/user/${query}`);
         } catch (e: any) {
@@ -27,11 +30,13 @@ export default function Generate({
             } else {
                 toast.error("Couldn't get that user ¯\\_(ツ)_/¯");
             }
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="w-full max-w-[300px]">
+        <form onSubmit={handleSubmit} className="w-full max-w-[350px]">
             <Field>
                 {showLabel && <Label>Farcaster Handle</Label>}
                 <div className="flex flex-row gap-2">
@@ -40,7 +45,8 @@ export default function Generate({
                         onChange={(e) => setQuery(e.target.value)}
                         value={query}
                     />
-                    <Button type="submit" color="purple">
+                    <Button type="submit" color="purple" disabled={loading}>
+                        {loading && <Spinner />}
                         Generate
                     </Button>
                 </div>

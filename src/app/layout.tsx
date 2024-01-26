@@ -30,13 +30,15 @@ export default function RootLayout({
                 />
                 <Toaster />
                 <header className="w-full justify-center flex md:justify-start">
-                    <Image
-                        src="/farcompass.png"
-                        width={2048}
-                        height={210.59}
-                        className="h-8 md:h-6 w-auto"
-                        alt="Farcompass"
-                    />
+                    <Link href="/">
+                        <Image
+                            src="/farcompass.png"
+                            width={2048}
+                            height={210.59}
+                            className="h-8 md:h-6 w-auto"
+                            alt="Farcompass"
+                        />
+                    </Link>
                 </header>
                 <main className="flex-1 flex items-center">{children}</main>
                 <footer className="w-full text-zinc-400 text-sm flex justify-center lg:justify-end">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { CompassSchema, Compass, User } from "@/types";
 import { RingLoader } from "react-spinners";
 import toast from "react-hot-toast";
+import Loader from "./Loader";
 
 const getCompass = async (fid: number) => {
     const response = await axios.get(
@@ -47,7 +48,7 @@ export default function Compass({ user }: { user?: User }) {
                 alt="Political Compass"
             />
             <div className="font-extrabold flex-col gap-4 text-black text-lg absolute inset-0 flex items-center justify-center">
-                <RingLoader color="#a79bf1" loading={loading} size={120} />
+                <Loader loading={loading} />
             </div>
             {user && compass && (
                 <div
