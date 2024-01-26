@@ -1,9 +1,13 @@
 import ClientSideToast from "@/components/ClientSideToast";
 import Compass from "@/components/Compass";
-import Search from "@/components/Search";
+import Generate from "@/components/Generate";
+import ShareButton from "@/components/ShareButton";
+import { Button } from "@/components/catalyst/button";
 import { User } from "@/types";
 import getUser from "@/util/get-user";
 import { Metadata, ResolvingMetadata } from "next";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 export async function generateMetadata(
     { params }: { params: { username: string } },
@@ -17,31 +21,25 @@ export async function generateMetadata(
 }
 
 export default async function UserResult({
-    searchParams,
+    params,
 }: {
-    searchParams: { query: string };
+    params: { username: string };
 }) {
     let user: User | undefined = undefined;
-    let error;
 
-    if (searchParams.query) {
+    if (params.username) {
         try {
-            user = await getUser(searchParams.query);
-            if (!user) throw new Error("User not found");
+            user = await getUser(params.username);
         } catch (e: any) {
-            if (e.response?.status === 404) {
-                error = "They're not on Farcaster ¯\\_(ツ)_/¯";
-            } else {
-                error = "Couldn't get that user ¯\\_(ツ)_/¯";
-            }
+            redirect("/404");
         }
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center gap-16 p-24">
-            <ClientSideToast error={error} />
-            <Search existingQuery={searchParams.query} />
+        <div className="flex flex-col items-center gap-12 h-full mx-auto">
             <Compass user={user} />
-        </main>
+            <Generate existingQuery={params.username} showLabel={false} />
+            <ShareButton />
+        </div>
     );
 }

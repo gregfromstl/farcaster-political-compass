@@ -1,11 +1,12 @@
-import ClientSideToast from "@/components/ClientSideToast";
-import Compass from "@/components/Compass";
-import Search from "@/components/Search";
-import { User } from "@/types";
-import getUser from "@/util/get-user";
+import Generate from "@/components/Generate";
 
 export default async function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center gap-16 p-24"></main>
+        <div className="flex flex-col items-center max-w-2xl justify-center gap-16 mx-auto h-full w-full">
+            <h2 className="text-5xl font-bold text-center">
+                Generate a political compass from your casts.
+            </h2>
+            <Generate />
+        </div>
     );
 }

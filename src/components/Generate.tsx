@@ -4,19 +4,36 @@ import { Field, Label } from "@/components/catalyst/fieldset";
 import { Input } from "@/components/catalyst/input";
 import { Button } from "@/components/catalyst/button";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import getUser from "@/util/get-user";
 
-export default function Search({ existingQuery }: { existingQuery?: string }) {
+export default function Generate({
+    existingQuery,
+    showLabel = true,
+}: {
+    existingQuery?: string;
+    showLabel?: boolean;
+}) {
     const router = useRouter();
     const [query, setQuery] = useState(existingQuery ?? "");
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        router.push("?query=" + query);
+        try {
+            await getUser(query); // prefetch the user
+            router.push(`/user/${query}`);
+        } catch (e: any) {
+            if (e.response?.status === 404) {
+                toast.error("They're not on Farcaster ¯\\_(ツ)_/¯");
+            } else {
+                toast.error("Couldn't get that user ¯\\_(ツ)_/¯");
+            }
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="w-full max-w-[300px]">
             <Field>
-                <Label>Farcaster Handle</Label>
+                {showLabel && <Label>Farcaster Handle</Label>}
                 <div className="flex flex-row gap-2">
                     <Input
                         name="username"
@@ -24,7 +41,7 @@ export default function Search({ existingQuery }: { existingQuery?: string }) {
                         value={query}
                     />
                     <Button type="submit" color="purple">
-                        Search
+                        Generate
                     </Button>
                 </div>
             </Field>
