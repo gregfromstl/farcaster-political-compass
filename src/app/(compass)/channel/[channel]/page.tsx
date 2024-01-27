@@ -1,5 +1,4 @@
 import Compass from "@/components/Compass";
-import Generate from "@/components/Generate";
 import ShareButton from "@/components/ShareButton";
 import { Channel } from "@/types";
 import getChannel from "@/util/get-channel";
@@ -7,12 +6,12 @@ import { Metadata, ResolvingMetadata } from "next";
 import { redirect } from "next/navigation";
 
 export async function generateMetadata(
-    { params }: { params: { username: string } },
+    { params }: { params: { channel: string } },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     return {
-        title: `${params.username} is politically...`,
-        description: `See @${params.username}'s cast-based political compass on Farcompass.`,
+        title: `${params.channel} is politically...`,
+        description: `See /${params.channel}'s cast-based political compass on Farcompass.`,
     };
 }
 
