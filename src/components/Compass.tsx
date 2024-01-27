@@ -61,7 +61,6 @@ export default function Compass({
             setLoading(true);
             getChannelCompass(channel.id)
                 .then((compass) => {
-                    console.log(compass);
                     setCompass(compass);
                 })
                 .catch((e) => {

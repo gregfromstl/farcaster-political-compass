@@ -40,7 +40,6 @@ export async function GET(
             },
         });
     } catch (e: any) {
-        console.log(e);
         return new Response("Internal server error", { status: 500 });
     }
 }
