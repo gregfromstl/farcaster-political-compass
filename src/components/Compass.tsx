@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { CompassSchema, Compass, User } from "@/types";
-import { RingLoader } from "react-spinners";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
 
@@ -58,7 +57,10 @@ export default function Compass({ user }: { user?: User }) {
                             Math.max(50 + compass.x * 50, 20),
                             80
                         )}%`,
-                        top: `${50 - compass.y * 50}%`,
+                        top: `${Math.min(
+                            Math.max(50 + compass.y * 50, 20),
+                            80
+                        )}%`,
                         transform: "translate(-50%, -50%)",
                     }}
                 >
