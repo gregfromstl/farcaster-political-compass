@@ -1,4 +1,4 @@
-import { User } from "@/types";
+import { Channel, User } from "@/types";
 import { ImageResponse } from "next/og";
 import { ReactNode } from "react";
 
@@ -40,7 +40,7 @@ const BackgroundCanvas = ({ children }: { children?: ReactNode }) => {
     );
 };
 
-const UserTag = ({ user }: { user: User }) => {
+const ChannelTag = ({ channel }: { channel: Channel }) => {
     return (
         <div
             style={{
@@ -51,16 +51,16 @@ const UserTag = ({ user }: { user: User }) => {
                 width: "100%",
             }}
         >
-            {user.pfpUrl && (
+            {channel.imageUrl && (
                 <img
-                    src={user.pfpUrl}
-                    alt={user.name}
+                    src={channel.imageUrl}
+                    alt={channel.name}
                     width={96}
                     height={96}
                     style={{ borderRadius: "100%" }}
                 />
             )}
-            {user.name}
+            /{channel.name}
         </div>
     );
 };
@@ -81,23 +81,23 @@ const Logo = () => {
 export default async function Image({
     params,
 }: {
-    params: { username: string };
+    params: { channel: string };
 }) {
-    let user: User | undefined = undefined;
+    let channel: Channel | undefined = undefined;
 
-    if (params.username) {
+    if (params.channel) {
         try {
             const response = await fetch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${params.username}`
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/channel/${params.channel}`
             );
             if (!response.ok) throw new Error("User not found");
-            user = await response.json();
+            channel = await response.json();
         } catch (e: any) {
             console.log(e);
         }
     }
 
-    if (!user) {
+    if (!channel) {
         return new ImageResponse(
             (
                 <BackgroundCanvas>
@@ -137,7 +137,7 @@ export default async function Image({
                     }}
                 >
                     <Logo />
-                    <UserTag user={user} />
+                    <ChannelTag channel={channel} />
                 </div>
             </BackgroundCanvas>
         )

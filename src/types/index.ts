@@ -14,3 +14,11 @@ export const UserSchema = z.object({
 });
 
 export type User = z.infer<typeof UserSchema>;
+
+export const ChannelSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    imageUrl: z.string().nullish(),
+});
+
+export type Channel = z.infer<typeof ChannelSchema>;

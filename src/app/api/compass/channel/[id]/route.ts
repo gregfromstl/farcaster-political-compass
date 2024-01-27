@@ -3,12 +3,12 @@ import evaluateCompass from "@/util/evaluate-compass";
 
 export async function GET(
     request: Request,
-    { params }: { params: { fid: string } }
+    { params }: { params: { id: string } }
 ) {
-    const fid = parseInt(params.fid);
+    const id = params.id;
 
-    if (!fid) {
-        return new Response("Missing fid", { status: 400 });
+    if (!id) {
+        return new Response("Missing channel", { status: 400 });
     }
 
     try {
@@ -17,20 +17,21 @@ export async function GET(
         let i = 0;
         do {
             const result = await axios.get(
-                `https://api.neynar.com/v1/farcaster/casts?fid=${fid}&cursor=${cursor}&limit=150`,
+                `https://api.neynar.com/v2/farcaster/feed/channels?with_recasts=true&with_replies=true&limit=100&channel_ids=${id}&cursor=${cursor}`,
                 {
                     headers: {
                         api_key: process.env.NEYNAR_API_KEY,
                     },
                 }
             );
+
             casts.push(
-                ...result.data.result.casts
+                ...result.data.casts
                     .map((cast: { text: string }) => cast.text)
                     .filter((cast: string) => cast.length > 100)
             );
 
-            cursor = result.data.result?.next?.cursor;
+            cursor = result.data?.next?.cursor;
             i++;
         } while (cursor && i < 3);
         const compass = await evaluateCompass(casts);
@@ -40,7 +41,6 @@ export async function GET(
             },
         });
     } catch (e: any) {
-        console.log(e);
         return new Response("Internal server error", { status: 500 });
     }
 }
