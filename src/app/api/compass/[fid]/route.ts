@@ -17,7 +17,7 @@ export async function GET(
         let i = 0;
         do {
             const result = await axios.get(
-                `https://api.neynar.com/v1/farcaster/casts?fid=${fid}&cursor=${cursor}&limit=150`,
+                `https://api.neynar.com/v1/farcaster/casts?fid=${fid}&cursor=${cursor}&limit=100`,
                 {
                     headers: {
                         api_key: process.env.NEYNAR_API_KEY,
