@@ -91,6 +91,7 @@ export async function GET(request: NextRequest) {
                             top: `${Math.min(Math.max(50 - y * 50, 20), 80)}%`,
                             width: "25px",
                             height: "25px",
+                            position: "absolute",
                             borderRadius: "25px",
                             transform: "translate(-50%, -50%)",
                         }}

@@ -72,7 +72,7 @@ export default async function UserResult({
                     Search
                 </FrameButton>
                 <FrameImage
-                    src={`${frame.origin}/images/result?pfp=${user?.pfpUrl}&name=${user?.name}&y=${compass?.x}&x=${compass?.y}&type=user`}
+                    src={`${frame.origin}/images/result?pfp=${user?.pfpUrl}&name=${user?.name}&y=${compass?.y}&x=${compass?.x}&type=user`}
                 />
             </Frame>
             <div className="flex flex-col items-center gap-12 h-full mx-auto">
