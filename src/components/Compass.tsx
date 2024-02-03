@@ -58,7 +58,7 @@ export default function Compass({
                             80
                         )}%`,
                         top: `${Math.min(
-                            Math.max(50 + compass.y * 50, 20),
+                            Math.max(50 - compass.y * 50, 20),
                             80
                         )}%`,
                         transform: "translate(-50%, -50%)",
