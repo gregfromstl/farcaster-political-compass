@@ -27,7 +27,7 @@ export default async function Home({
                         return `/user/${user.name}`;
                     }}
                 >
-                    What's yours?
+                    What&apos;s yours?
                 </FrameButton>
 
                 <FrameButton

@@ -1,4 +1,4 @@
-export default [
+const data = [
     {
         left: 0.5701069715688974,
         right: 0.5671509884033205,
@@ -180,3 +180,5 @@ export default [
         libertarian: 0.5306414559115207,
     },
 ];
+
+export default data;

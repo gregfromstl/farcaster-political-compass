@@ -55,7 +55,7 @@ export default async function UserResult({
                         return `/user/${user.name}`;
                     }}
                 >
-                    What's yours?
+                    What&apos;s yours?
                 </FrameButton>
                 <FrameImage
                     src={`${frame.origin}/images/result?pfp=${channel?.imageUrl}&name=${channel?.name}&y=${compass?.y}&x=${compass?.x}&type=channel`}

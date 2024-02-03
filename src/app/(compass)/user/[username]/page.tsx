@@ -60,7 +60,7 @@ export default async function UserResult({
                             return `/user/${user.name}`;
                         }}
                     >
-                        What's yours?
+                        What&apos;s yours?
                     </FrameButton>
                 )}
                 <FrameButton
