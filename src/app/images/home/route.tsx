@@ -6,7 +6,7 @@ import satori from "satori";
 import sharp from "sharp";
 export const dynamic = "force-dynamic";
 
-const fontPath = join(process.cwd(), "NunitoSans-Semibold.ttf");
+const fontPath = join(process.cwd(), "./NunitoSans-Semibold.ttf");
 let fontData = fs.readFileSync(fontPath);
 
 export async function GET(request: NextRequest) {
