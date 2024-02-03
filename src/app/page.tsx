@@ -5,6 +5,7 @@ import {
     FrameButton,
     FrameConfig,
     FrameImage,
+    FrameInput,
 } from "@devcaster/next/frames";
 
 export default async function Home({
@@ -17,6 +18,7 @@ export default async function Home({
     return (
         <>
             <Frame frame={frame}>
+                <FrameInput placeholder="Search a username" />
                 <FrameButton
                     onClick={async (f: typeof frame) => {
                         const user = await getUserFromFid(
@@ -25,7 +27,15 @@ export default async function Home({
                         return `/user/${user.name}`;
                     }}
                 >
-                    Generate
+                    What's yours?
+                </FrameButton>
+
+                <FrameButton
+                    onClick={async (f: typeof frame) => {
+                        return `/user/${f.action!.untrustedData.inputText}`;
+                    }}
+                >
+                    Search
                 </FrameButton>
                 <FrameImage src={`${frame.origin}/images/home`} />
             </Frame>
