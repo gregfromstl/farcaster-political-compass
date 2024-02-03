@@ -13,7 +13,7 @@ export default async function Home({
 }: {
     searchParams: Record<string, string>;
 }) {
-    const frame = new FrameConfig({}, searchParams);
+    const frame = new FrameConfig({ isSelf: false }, searchParams);
 
     return (
         <>
@@ -24,6 +24,7 @@ export default async function Home({
                         const user = await getUserFromFid(
                             f.action!.untrustedData.fid
                         );
+                        f.state.isSelf = true;
                         return `/user/${user.name}`;
                     }}
                 >

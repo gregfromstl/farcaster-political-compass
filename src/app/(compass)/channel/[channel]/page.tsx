@@ -31,7 +31,7 @@ export default async function UserResult({
     params: { channel: string };
     searchParams: Record<string, string>;
 }) {
-    const frame = new FrameConfig({}, searchParams);
+    const frame = new FrameConfig({ isSelf: false }, searchParams);
     let channel: Channel | undefined = undefined;
     let compass: TCompass | undefined = undefined;
 
@@ -52,6 +52,7 @@ export default async function UserResult({
                         const user = await getUserFromFid(
                             f.action!.untrustedData.fid
                         );
+                        f.state.isSelf = true;
                         return `/user/${user.name}`;
                     }}
                 >
