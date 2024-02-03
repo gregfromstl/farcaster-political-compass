@@ -92,6 +92,7 @@ export async function GET(request: NextRequest) {
                             width: "25px",
                             height: "25px",
                             borderRadius: "25px",
+                            transform: "translate(-50%, -50%)",
                         }}
                     />
                 </div>
