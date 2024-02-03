@@ -1,77 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import Image from "next/image";
-import { CompassSchema, Compass, User, Channel } from "@/types";
-import toast from "react-hot-toast";
-import Loader from "./Loader";
-
-const getUserCompass = async (fid: number) => {
-    const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/compass/${fid}`
-    );
-    const compass = CompassSchema.safeParse(response.data);
-    if (!compass.success) {
-        throw new Error("Failed to parse compass");
-    }
-    return compass.data;
-};
-
-const getChannelCompass = async (id: string) => {
-    const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/compass/channel/${id}`
-    );
-    const compass = CompassSchema.safeParse(response.data);
-    if (!compass.success) {
-        throw new Error("Failed to parse compass");
-    }
-    return compass.data;
-};
+import { Compass, User, Channel } from "@/types";
 
 export default function Compass({
     user,
     channel,
+    compass,
 }: {
     user?: User;
     channel?: Channel;
+    compass: Compass;
 }) {
-    const [loading, setLoading] = useState(false);
-    const [compass, setCompass] = useState<Compass | undefined>(undefined);
-
-    useEffect(() => {
-        if (user) {
-            setCompass(undefined);
-            setLoading(true);
-            getUserCompass(user.fid)
-                .then((compass) => {
-                    setCompass(compass);
-                })
-                .catch((e) => {
-                    toast.error("Something went wrong");
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }
-    }, [user]);
-
-    useEffect(() => {
-        if (channel) {
-            setCompass(undefined);
-            setLoading(true);
-            getChannelCompass(channel.id)
-                .then((compass) => {
-                    setCompass(compass);
-                })
-                .catch((e) => {
-                    toast.error("Something went wrong");
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }
-    }, [channel]);
-
     return (
         <div className="relative w-64 h-64 md:w-96 md:h-96">
             <Image
@@ -80,10 +20,7 @@ export default function Compass({
                 className="object-contain object-center"
                 alt="Political Compass"
             />
-            <div className="font-extrabold flex-col gap-4 text-black text-lg absolute inset-0 flex items-center justify-center">
-                <Loader loading={loading} />
-            </div>
-            {user && compass && (
+            {user && (
                 <div
                     style={{
                         position: "absolute",
@@ -112,7 +49,7 @@ export default function Compass({
                     )}
                 </div>
             )}
-            {channel && compass && (
+            {channel && (
                 <div
                     style={{
                         position: "absolute",

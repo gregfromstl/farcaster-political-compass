@@ -1,5 +1,6 @@
 import axios from "axios";
 import evaluateCompass from "@/util/evaluate-compass";
+export const dynamic = "force-dynamic";
 
 export async function GET(
     request: Request,

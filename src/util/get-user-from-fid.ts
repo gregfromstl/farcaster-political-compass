@@ -1,9 +1,9 @@
 import { User, UserSchema } from "@/types";
 import axios from "axios";
 
-export default async function getUser(query: string): Promise<User> {
+export default async function getUserFromFid(fid: number): Promise<User> {
     const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${query}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/fid/${fid}`
     );
     const user = UserSchema.safeParse(response.data);
     if (!user.success) {
