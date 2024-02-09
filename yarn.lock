@@ -19,13 +19,15 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@devcaster/next@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@devcaster/next/-/next-0.0.3.tgz#500454110c30944e0d8bc240641f36eeaa17f2fd"
-  integrity sha512-UdMp90JYDGeHTX40n6I1TVt/NrcZV9rcwV5ej0dyuAurlZIV0C6Qezf5l9xGosVdMUkdhXwTTa7D7yYWnrCVDg==
+"@devcaster/next@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@devcaster/next/-/next-0.0.5.tgz#5a181b73517022415981360c2a8d6fcdc54d1e82"
+  integrity sha512-OXQnnCIywX5NA7t6VNs3mh15Zuz531tBO2X/UkqY7lfeWyuwEcKnBKwwzSYzPx8dvS1A8FxEFocGlAYExH/zpA==
   dependencies:
     next "14.1.0"
     react "^18.2.0"
+    satori "^0.10.13"
+    sharp "0.32.6"
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
