@@ -9,7 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@devcaster/next": "^0.0.5",
+        "@devcaster/next": "^0.0.6",
         "@headlessui/react": "^2.0.0-alpha.4",
         "@heroicons/react": "^2.1.1",
         "@mistralai/mistralai": "^0.0.10",
